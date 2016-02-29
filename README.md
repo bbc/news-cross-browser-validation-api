@@ -32,8 +32,8 @@ Alternatively the variables can be set in the environment using env or your CI f
 Notice that selenium driver.quit is not required for Capybara tests because Capybara implicitly does so.
 
 ###Further Reading
-[rspec](http://jnicklas.github.io/capybara/)
-[BrowserStack documentation for Automate](https://www.browserstack.com/automate/ruby)
+- [CapyBara](http://jnicklas.github.io/capybara/)
+- [BrowserStack documentation for Automate](https://www.browserstack.com/automate/ruby)
 
 Happy Testing!
 
