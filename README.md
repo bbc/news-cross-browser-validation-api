@@ -4,7 +4,7 @@ capybara-browserstack
 This repository provides information and helpful tweaks to run your CapyBara tests on the BrowserStack selenium cloud infrastructure.
 
 ###Configuration
-Add the CapyBara, Cucumber gems gems into your Gemfile.
+Add the CapyBara, Cucumber gems into your Gemfile.
 Run `bundle install`.
 
 ###Run tests
