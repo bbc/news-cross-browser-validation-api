@@ -19,19 +19,22 @@ Capybara.register_driver :browserstack do |app|
 	capabilities['browserstack.debug'] = 'true'
 	capabilities['project'] = ENV['BS_AUTOMATE_PROJECT'] if ENV['BS_AUTOMATE_PROJECT']
 	capabilities['build'] = ENV['BS_AUTOMATE_BUILD'] if ENV['BS_AUTOMATE_BUILD']      
+  capabilities['browserstack.local'] = 'false'      
 
   if capabilities['browserstack.local'] && capabilities['browserstack.local'] == 'true';
     @bs_local = BrowserStack::Local.new
-    bs_local_args = { "key" => "#{ENV['BS_USERNAME']}", "forcelocal" => true }
+    bs_local_args = { "key" => "#{ENV['BS_AUTHKEY']}", "forcelocal" => true }
     @bs_local.start(bs_local_args)
-  endcapyba
+  end
   Capybara::Selenium::Driver.new(app, :browser => :remote, :url => url, :desired_capabilities => capabilities)
+
+
 end
 
 Capybara.default_driver = :browserstack
 Capybara.app_host = "http://www.google.com"
 Capybara.run_server = false
 
-After do
-  
+at_exit do
+  @bs_local.stop unless @bs_local.nil? 
 end
