@@ -1,5 +1,5 @@
 Given /^I am on (.+)$/ do |url|
-  visit "/"
+  visit "/ncr"
 end
  
 When /^I fill in "([^"]*)" found by "([^"]*)" with "([^"]*)"$/ do |value, type, keys|
