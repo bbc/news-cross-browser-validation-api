@@ -18,7 +18,7 @@ Capybara.register_driver :browserstack do |app|
 	capabilities['browser_version'] = ENV['SELENIUM_VERSION'] if ENV['SELENIUM_VERSION']
 	capabilities['browserstack.debug'] = 'true'
 	capabilities['project'] = ENV['BS_AUTOMATE_PROJECT'] if ENV['BS_AUTOMATE_PROJECT']
-	capabilities['build'] = ENV['BS_AUTOMATE_BUILD'] if ENV['BS_AUTOMATE_BUILD']      
+	capabilities['build'] = ENV['BS_AUTOMATE_BUILD'] || 'capybara-browserstack'
   capabilities['browserstack.local'] = 'false'      
 
   if capabilities['browserstack.local'] && capabilities['browserstack.local'] == 'true';
