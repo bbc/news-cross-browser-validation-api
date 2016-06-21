@@ -4,6 +4,14 @@ require 'browserstack/local'
 
 url = "http://#{ENV['BS_USERNAME']}:#{ENV['BS_AUTHKEY']}@hub.browserstack.com/wd/hub"
 
+class Capybara::Selenium::Driver < Capybara::Driver::Base
+  def reset!
+    if @browser
+      @browser.navigate.to('about:blank')
+    end
+  end
+end
+
 Capybara.register_driver :browserstack do |app|
 
   capabilities = Selenium::WebDriver::Remote::Capabilities.new
@@ -19,7 +27,9 @@ Capybara.register_driver :browserstack do |app|
 	capabilities['browserstack.debug'] = 'true'
 	capabilities['project'] = ENV['BS_AUTOMATE_PROJECT'] if ENV['BS_AUTOMATE_PROJECT']
 	capabilities['build'] = ENV['BS_AUTOMATE_BUILD'] || 'capybara-browserstack'
-  capabilities['browserstack.local'] = 'false'      
+  capabilities['browserstack.local'] = 'false'     
+
+  puts app.inspect 
 
   if capabilities['browserstack.local'] && capabilities['browserstack.local'] == 'true';
     @bs_local = BrowserStack::Local.new
@@ -27,8 +37,6 @@ Capybara.register_driver :browserstack do |app|
     @bs_local.start(bs_local_args)
   end
   Capybara::Selenium::Driver.new(app, :browser => :remote, :url => url, :desired_capabilities => capabilities)
-
-
 end
 
 Capybara.default_driver = :browserstack
