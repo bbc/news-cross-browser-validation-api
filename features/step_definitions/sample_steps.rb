@@ -1,7 +1,3 @@
-Given /^I am on (.+)$/ do |url|
-  visit "/ncr"
-end
- 
 When /^I fill in "([^"]*)" found by "([^"]*)" with "([^"]*)"$/ do |value, type, keys|
   fill_in(value, :with => keys)
 end
@@ -13,6 +9,3 @@ end
 Then /^I should see title "([^"]*)"$/ do |title|
   expect(page).to have_title title
 end
-
-
-

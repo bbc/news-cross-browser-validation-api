@@ -34,7 +34,6 @@ Capybara.register_driver :browserstack do |app|
 end
 
 Capybara.default_driver = :browserstack
-Capybara.app_host = "https://www.google.com"
 Capybara.run_server = false
 
 at_exit do
