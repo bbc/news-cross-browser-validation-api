@@ -29,8 +29,6 @@ Capybara.register_driver :browserstack do |app|
 	capabilities['build'] = ENV['BS_AUTOMATE_BUILD'] || 'capybara-browserstack'
   capabilities['browserstack.local'] = 'false'     
 
-  puts app.inspect 
-
   if capabilities['browserstack.local'] && capabilities['browserstack.local'] == 'true';
     @bs_local = BrowserStack::Local.new
     bs_local_args = { "key" => "#{ENV['BS_AUTHKEY']}", "forcelocal" => true }
