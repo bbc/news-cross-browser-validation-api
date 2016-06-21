@@ -1,9 +1,9 @@
+require 'yaml'
 require 'selenium/webdriver'
 require 'capybara/cucumber'
 require 'browserstack/local'
 
-url = "http://#{ENV['BS_USERNAME']}:#{ENV['BS_AUTHKEY']}@hub.browserstack.com/wd/hub"
-
+# monkey patch to avoid reset sessions
 class Capybara::Selenium::Driver < Capybara::Driver::Base
   def reset!
     if @browser
@@ -12,29 +12,25 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
   end
 end
 
+CONFIG = YAML.load(File.read(File.join(File.dirname(__FILE__),'../../config.yml')))
+CONFIG['user'] = ENV['BROWSERSTACK_USERNAME'] || CONFIG['user']
+CONFIG['key'] = ENV['BROWSERSTACK_ACCESS_KEY'] || CONFIG['key']
+TASK_ID = (ENV['TASK_ID'] || 0).to_i
+
 Capybara.register_driver :browserstack do |app|
+  @caps = CONFIG['common_caps'].merge(CONFIG['browser_caps'][TASK_ID])
 
-  capabilities = Selenium::WebDriver::Remote::Capabilities.new
-	if ENV['BS_AUTOMATE_OS']
-		capabilities['os'] = ENV['BS_AUTOMATE_OS']
-		capabilities['os_version'] = ENV['BS_AUTOMATE_OS_VERSION']
-	else
-		capabilities['platform'] = ENV['SELENIUM_PLATFORM'] || 'ANY'
-	end
-
-	capabilities['browser'] = ENV['SELENIUM_BROWSER'] || 'chrome'
-	capabilities['browser_version'] = ENV['SELENIUM_VERSION'] if ENV['SELENIUM_VERSION']
-	capabilities['browserstack.debug'] = 'true'
-	capabilities['project'] = ENV['BS_AUTOMATE_PROJECT'] if ENV['BS_AUTOMATE_PROJECT']
-	capabilities['build'] = ENV['BS_AUTOMATE_BUILD'] || 'capybara-browserstack'
-  capabilities['browserstack.local'] = 'false'     
-
-  if capabilities['browserstack.local'] && capabilities['browserstack.local'] == 'true';
+  if @caps['browserstack.local'] && @caps['browserstack.local'].to_s == 'true';
     @bs_local = BrowserStack::Local.new
-    bs_local_args = { "key" => "#{ENV['BS_AUTHKEY']}", "forcelocal" => true }
+    bs_local_args = {"key" => "#{CONFIG['key']}"}
     @bs_local.start(bs_local_args)
   end
-  Capybara::Selenium::Driver.new(app, :browser => :remote, :url => url, :desired_capabilities => capabilities)
+
+  Capybara::Selenium::Driver.new(app,
+    :browser => :remote,
+    :url => "http://#{CONFIG['user']}:#{CONFIG['key']}@#{CONFIG['server']}/wd/hub",
+    :desired_capabilities => @caps
+  )
 end
 
 Capybara.default_driver = :browserstack
