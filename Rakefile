@@ -3,7 +3,7 @@ require 'parallel'
 require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new(:single) do |task|
-  task.cucumber_opts = ['--format=pretty', 'features/sample.feature']
+  task.cucumber_opts = ['--format=pretty', 'features/single.feature']
 end
 
 task :default => :single
