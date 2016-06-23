@@ -12,10 +12,13 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
   end
 end
 
-CONFIG = YAML.load(File.read(File.join(File.dirname(__FILE__),'../../config.yml')))
+TASK_ID = (ENV['TASK_ID'] || 0).to_i
+CONFIG_NAME = ENV['CONFIG_NAME'] || 'single'
+
+CONFIG = YAML.load(File.read(File.join(File.dirname(__FILE__), "../../config/#{CONFIG_NAME}.config.yml")))
 CONFIG['user'] = ENV['BROWSERSTACK_USERNAME'] || CONFIG['user']
 CONFIG['key'] = ENV['BROWSERSTACK_ACCESS_KEY'] || CONFIG['key']
-TASK_ID = (ENV['TASK_ID'] || 0).to_i
+
 
 Capybara.register_driver :browserstack do |app|
   @caps = CONFIG['common_caps'].merge(CONFIG['browser_caps'][TASK_ID])
