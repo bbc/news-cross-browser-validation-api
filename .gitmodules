@@ -1,0 +1,3 @@
+[submodule "regression-tests"]
+	path = regression-tests
+	url = git@github.com:BBC-News/regression-testing.git
