@@ -1,12 +1,16 @@
 server: "hub-cloud.browserstack.com"
-user: "BROWSERSTACK_USERNAME"
-key: "BROWSERSTACK_ACCESS_KEY"
+user: "shilpasaraf"
+key: "1iquWKSsVJqqBqtgwdsu"
 
 common_caps:
-  "build": "capybara-browserstack"
+  "build": "version1"
+  "project": "newintropage"
   "browserstack.debug": true
 
 browser_caps:
   -
     "browser": "chrome"
     "browserstack.local": true
+    "project": "News"
+    "name": "Browser Test"
+    "build": "0.1"

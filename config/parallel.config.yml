@@ -1,17 +1,81 @@
 server: "hub-cloud.browserstack.com"
-user: "BROWSERSTACK_USERNAME"
-key: "BROWSERSTACK_ACCESS_KEY"
+user: "shilpasaraf"
+key: "1iquWKSsVJqqBqtgwdsu"
 
 common_caps:
-  "build": "capybara-browserstack"
+  "build": "news1"
+  "project": "BBC News Sites"
   "browserstack.debug": true
 
 browser_caps:
   -
-    "browser": "chrome"
+    "device": "iPhone 6S"
+    "os": "ios"
+    "os_version": "9.1"
+    "browser": "iphone"
+    "deviceOrientation": "portrait"
   -
-    "browser": "firefox"
+    "os": "Windows"
+    "os_version": "7"
+    "browser": "IE"
+    "browser_version": "11.0"
+    "resolution": "1024x768"
+
   -
-    "browser": "internet explorer"
+    "os": "Windows"
+    "os_version": "7"
+    "browser": "IE"
+    "browser_version": "9.0"
+    "resolution": "1024x768"
   -
-    "browser": "safari"
+    "os": "Windows"
+    "os_version": "10"
+    "browser": "Edge"
+    "browser_version": "13.0"
+    "resolution": "1024x768"
+  -
+    "os": "Windows"
+    "os_version": "7"
+    "browser": "Chrome"
+    "browser_version": "54.0"
+    "resolution": "1024x768"
+
+  -
+    "os": "Windows"
+    "os_version": "7"
+    "browser": "Chrome"
+    "browser_version": "54.0"
+    "resolution": "1024x768"
+  -
+    "os": "Windows"
+    "os_version": "7"
+    "browser": "FireFox"
+    "browser_version": "50.0"
+    "resolution": "1024x768"
+  -
+    "os": "OS X"
+    "os_version": "Mavericks"
+    "browser": "Safari"
+    "browser_version": "7.1"
+    "resolution": "1024x768"
+
+  -
+    "device": "Galaxy S5"
+    "os": "andriod"
+    "os_version": "4.4"
+    "browser": "andriod"
+    "deviceOrientation": "landscape"
+
+  -
+    "device": "Google Nexus 5"
+    "os": "andriod"
+    "os_version": "5.0"
+    "browser": "andriod"
+    "deviceOrientation": "portrait"
+
+  
+
+
+
+
+
